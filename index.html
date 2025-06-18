@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chamada de Vídeo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #4e54c8, #8f94fb);
+            color: #fff;
+        }
+        .container {
+            text-align: center;
+            background: #ffffff;
+            color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 400px;
+        }
+        .container h1 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        .container p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .button {
+            background-color: #4e54c8;
+            color: #fff;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .button:hover {
+            background-color: #6f73ef;
+        }
+        .loading {
+            font-size: 18px;
+            margin-top: 20px;
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="content">
+        <!-- Conteúdo será inserido dinamicamente -->
+    </div>
+
+    <script>
+        const content = document.getElementById('content');
+
+        // Verifica se o usuário já acessou a página antes
+        if (localStorage.getItem('videoCallAccessed')) {
+            content.innerHTML = `
+                <div class="message">Essa chamada de vídeo já terminou...</div>
+            `;
+        } else {
+            // Primeiro acesso
+            localStorage.setItem('videoCallAccessed', 'true');
+            content.innerHTML = `
+                <h1>Roberta convidou você para uma chamada de vídeo ao vivo...</h1>
+                <p>Clique no botão abaixo para aceitar o convite 👇</p>
+                <button class="button" id="joinButton">Participar agora</button>
+            `;
+
+            const joinButton = document.getElementById('joinButton');
+            joinButton.addEventListener('click', () => {
+                // Inicia o processo de "loading"
+                startLoadingSequence();
+            });
+        }
+
+        function startLoadingSequence() {
+            const messages = [
+                "Confirmando conexão...",
+                "Roberta está online agora...",
+                "Entrando na sala ao vivo..."
+            ];
+            let index = 0;
+
+            // Limpa o conteúdo atual e inicia o "loading"
+            content.innerHTML = `<div class="loading">${messages[index]}</div>`;
+            const loadingElement = content.querySelector('.loading');
+
+            // Exibe cada mensagem com um intervalo
+            const interval = setInterval(() => {
+                index++;
+                if (index < messages.length) {
+                    loadingElement.textContent = messages[index];
+                } else {
+                    clearInterval(interval);
+                    // Redireciona o usuário após as mensagens
+                    window.location.href = "https://meuprivacy.space/salaprivada/32k4jsakldj34kljasd324/";
+                }
+            }, 1500); // Tempo entre mensagens (1,5 segundos)
+        }
+    </script>
+</body>
+</html>
